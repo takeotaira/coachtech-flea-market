@@ -19,16 +19,23 @@
                 name="name"
                 value="{{ old('name') }}"
             >
+
+            @error('name')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
             <label for="email">メールアドレス</label>
             <input
-                type="email"
+                type="text"
                 id="email"
                 name="email"
                 value="{{ old('email') }}"
             >
+            @error('email')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -38,6 +45,9 @@
                 id="password"
                 name="password"
             >
+            @error('password')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
@@ -47,6 +57,9 @@
                 id="password_confirmation"
                 name="password_confirmation"
             >
+            @error('password_confirmation')
+                <p>{{ $message }}</p>
+            @enderror
         </div>
 
         <button type="submit">登録する</button>
