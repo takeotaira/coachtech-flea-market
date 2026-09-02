@@ -22,6 +22,10 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        $this->app->bind(
+            \Laravel\Fortify\Http\Requests\LoginRequest::class,
+            \App\Http\Requests\LoginRequest::class
+        );
         $this->app->singleton(RegisterResponse::class, function () {
             return new class implements RegisterResponse {
                 public function toResponse($request)
@@ -36,7 +40,10 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::registerView(function () {
             return view('auth.register');
-            });
+        });
+        Fortify::loginView(function () {
+            return view('auth.login');
+        });
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
@@ -45,7 +52,6 @@ class FortifyServiceProvider extends ServiceProvider
 
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
-
             return Limit::perMinute(5)->by($throttleKey);
         });
 
