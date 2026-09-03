@@ -17,11 +17,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/item/{item_id}/like', [LikeController::class, 'destroy'])
         ->name('likes.destroy');
 
+    Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])
+        ->name('comments.store');
+
     Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])
         ->name('purchases.create');
 
-    Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])
-        ->name('comments.store');
+    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])
+        ->name('purchases.store');
+
+    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit'])
+        ->name('purchases.address.edit');
+
+    Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])
+        ->name('purchases.address.update');
 });
 
 Route::get('/', function () {
@@ -30,3 +39,6 @@ Route::get('/', function () {
 
 Route::get('/item/{item_id}', [ItemController::class, 'show'])
     ->name('items.show');
+
+Route::get('/', [ItemController::class, 'index'])
+    ->name('items.index');

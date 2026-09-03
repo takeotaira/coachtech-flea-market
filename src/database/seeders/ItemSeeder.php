@@ -40,6 +40,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'Rolax',
                 'description' => 'スタイリッシュなデザインのメンズ腕時計',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Armani+Mens+Clock.jpg',
+                'categories' => ['ファッション', 'メンズ', 'アクセサリー'],
                 'condition_name' => '良好',
             ],
             [
@@ -48,6 +49,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => '西芝',
                 'description' => '高速で信頼性の高いハードディスク',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/HDD+Hard+Disk.jpg',
+                'categories' => ['家電'],
                 'condition_name' => '目立った傷や汚れなし',
             ],
             [
@@ -56,6 +58,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'なし',
                 'description' => '新鮮な玉ねぎ3束のセット',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/iLoveIMG+d.jpg',
+                'categories' => ['食品'],
                 'condition_name' => 'やや傷や汚れあり',
             ],
             [
@@ -64,6 +67,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => null,
                 'description' => 'クラシックなデザインの革靴',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Leather+Shoes+Product+Photo.jpg',
+                'categories' => ['ファッション', 'メンズ'],
                 'condition_name' => '状態が悪い',
             ],
             [
@@ -72,6 +76,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => null,
                 'description' => '高性能なノートパソコン',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Living+Room+Laptop.jpg',
+                'categories' => ['家電'],
                 'condition_name' => '良好',
             ],
             [
@@ -80,6 +85,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'なし',
                 'description' => '高音質のレコーディング用マイク',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Music+Mic+4632231.jpg',
+                'categories' => ['家電'],
                 'condition_name' => '目立った傷や汚れなし',
             ],
             [
@@ -88,6 +94,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => null,
                 'description' => 'おしゃれなショルダーバッグ',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Purse+fashion+pocket.jpg',
+                'categories' => ['ファッション'],
                 'condition_name' => 'やや傷や汚れあり',
             ],
             [
@@ -96,6 +103,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'なし',
                 'description' => '使いやすいタンブラー',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Tumbler+souvenir.jpg',
+                'categories' => ['キッチン'],
                 'condition_name' => '状態が悪い',
             ],
             [
@@ -104,6 +112,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => 'Starbucks',
                 'description' => '手動のコーヒーミル',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/Waitress+with+Coffee+Grinder.jpg',
+                'categories' => ['キッチン'],
                 'condition_name' => '良好',
             ],
             [
@@ -112,6 +121,7 @@ class ItemSeeder extends Seeder
                 'brand_name' => null,
                 'description' => '便利なメイクアップセット',
                 'image_path' => 'https://coachtech-matter.s3.ap-northeast-1.amazonaws.com/image/%E5%A4%96%E5%87%BA%E3%83%A1%E3%82%A4%E3%82%AF%E3%82%A2%E3%83%83%E3%83%95%E3%82%9A%E3%82%BB%E3%83%83%E3%83%88.jpg',
+                'categories' => ['コスメ', 'レディース'],
                 'condition_name' => '目立った傷や汚れなし',
             ],
         ];
@@ -124,7 +134,7 @@ class ItemSeeder extends Seeder
                     $data['condition_name']
                 )->firstOrFail();
 
-                Item::updateOrCreate(
+                $item = Item::updateOrCreate(
                     [
                         'name' => $data['name'],
                     ],
@@ -137,6 +147,13 @@ class ItemSeeder extends Seeder
                         'image_path' => $data['image_path'],
                     ]
                 );
+
+                $categoryIds = Category::whereIn(
+                    'name',
+                    $data['categories']
+                )->pluck('id');
+
+                $item->categories()->sync($categoryIds);
             }
         });
     }
