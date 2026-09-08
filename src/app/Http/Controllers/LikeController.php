@@ -7,9 +7,9 @@ use App\Models\Like;
 
 class LikeController extends Controller
 {
-    public function store($item_id)
+    public function store($itemId)
     {
-        $item = Item::findOrFail($item_id);
+        $item = Item::findOrFail($itemId);
 
         Like::firstOrCreate([
             'user_id' => auth()->id(),
@@ -17,20 +17,20 @@ class LikeController extends Controller
         ]);
 
         return redirect()->route('items.show', [
-            'item_id' => $item->id,
+            'itemId' => $item->id,
         ]);
     }
 
-    public function destroy($item_id)
+    public function destroy($itemId)
     {
-        $item = Item::findOrFail($item_id);
+        $item = Item::findOrFail($itemId);
 
         Like::where('user_id', auth()->id())
             ->where('item_id', $item->id)
             ->delete();
 
         return redirect()->route('items.show', [
-            'item_id' => $item->id,
+            'itemId' => $item->id,
         ]);
     }
 }

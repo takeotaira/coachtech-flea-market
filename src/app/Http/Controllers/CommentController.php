@@ -3,23 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
-use App\Models\Item;
 use App\Models\Comment;
+use App\Models\Item;
 
 class CommentController extends Controller
 {
-    public function store(CommentRequest $request, $item_id)
+    public function store(CommentRequest $request, $itemId)
     {
-        $item = Item::findOrFail($item_id);
+        $item = Item::findOrFail($itemId);
+        $validatedData = $request->validated();
 
         Comment::create([
             'user_id' => auth()->id(),
             'item_id' => $item->id,
-            'content' => $request->input('content'),
+            'content' => $validatedData['content'],
         ]);
 
         return redirect()->route('items.show', [
-            'item_id' => $item->id,
+            'itemId' => $item->id,
         ]);
     }
 }

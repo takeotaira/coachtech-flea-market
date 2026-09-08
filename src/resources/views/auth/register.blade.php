@@ -8,7 +8,7 @@
 
     <h1>会員登録</h1>
 
-    <form action="/register" method="POST">
+    <form action="{{ route('register') }}" method="POST" novalidate>
         @csrf
 
         <div>
@@ -28,7 +28,7 @@
         <div>
             <label for="email">メールアドレス</label>
             <input
-                type="text"
+                type="email"
                 id="email"
                 name="email"
                 value="{{ old('email') }}"

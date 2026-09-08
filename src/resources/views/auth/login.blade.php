@@ -8,17 +8,18 @@
 
     <h1>ログイン</h1>
 
-    <form action="/login" method="POST">
+    <form action="{{ route('login') }}" method="POST" novalidate>
         @csrf
 
         <div>
             <label for="email">メールアドレス</label>
             <input
-                type="text"
+                type="email"
                 id="email"
                 name="email"
                 value="{{ old('email') }}"
             >
+
             @error('email')
                 <p>{{ $message }}</p>
             @enderror

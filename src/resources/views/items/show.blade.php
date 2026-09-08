@@ -1,9 +1,6 @@
 <h1>{{ $item->name }}</h1>
-<img
-    src="{{ $item->image_path }}"
-    alt="{{ $item->name }}"
-    width="300"
->
+
+<img src="{{ asset($item->image_path) }}" alt="{{ $item->name }}" width="300">
 
 <p>ブランド名：{{ $item->brand_name ?? 'なし' }}</p>
 
@@ -13,7 +10,7 @@
 
 @auth
     @if ($isLiked)
-        <form action="{{ route('likes.destroy', ['item_id' => $item->id]) }}" method="POST">
+        <form action="{{ route('likes.destroy', ['itemId' => $item->id]) }}" method="POST">
             @csrf
             @method('DELETE')
 
@@ -22,7 +19,7 @@
             </button>
         </form>
     @else
-        <form action="{{ route('likes.store', ['item_id' => $item->id]) }}" method="POST">
+        <form action="{{ route('likes.store', ['itemId' => $item->id]) }}" method="POST">
             @csrf
 
             <button type="submit" class="like-button">
@@ -38,7 +35,7 @@
 </div>
 
 @auth
-    <form action="{{ route('comments.store', ['item_id' => $item->id]) }}" method="POST">
+    <form action="{{ route('comments.store', ['itemId' => $item->id]) }}" method="POST">
         @csrf
 
         <label for="content">商品へのコメント</label>
@@ -80,7 +77,7 @@
     <p>Sold</p>
 @else
     @auth
-        <a href="{{ route('purchases.create', ['item_id' => $item->id]) }}">
+        <a href="{{ route('purchases.create', ['itemId' => $item->id]) }}">
             購入手続きへ
         </a>
     @endauth

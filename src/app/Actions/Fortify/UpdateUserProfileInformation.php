@@ -6,48 +6,45 @@ use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\UpdatesUserProfileInformation;
 
 class UpdateUserProfileInformation implements UpdatesUserProfileInformation
 {
-    /**
-     * Validate and update the given user's profile information.
-     *
-     * @param  array<string, string>  $input
-     *
-     * @throws ValidationException
-     */
+    private const NAME_MAX_LENGTH = 255;
+    private const EMAIL_MAX_LENGTH = 255;
+
     public function update(User $user, array $input): void
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-
+            'name' => [
+                'required',
+                'string',
+                'max:' . self::NAME_MAX_LENGTH,
+            ],
             'email' => [
                 'required',
                 'string',
                 'email',
-                'max:255',
+                'max:' . self::EMAIL_MAX_LENGTH,
                 Rule::unique('users')->ignore($user->id),
             ],
         ])->validateWithBag('updateProfileInformation');
 
-        if ($input['email'] !== $user->email &&
-            $user instanceof MustVerifyEmail) {
+        if (
+            $input['email'] !== $user->email
+            && $user instanceof MustVerifyEmail
+        ) {
             $this->updateVerifiedUser($user, $input);
-        } else {
-            $user->forceFill([
-                'name' => $input['name'],
-                'email' => $input['email'],
-            ])->save();
+
+            return;
         }
+
+        $user->forceFill([
+            'name' => $input['name'],
+            'email' => $input['email'],
+        ])->save();
     }
 
-    /**
-     * Update the given verified user's profile information.
-     *
-     * @param  array<string, string>  $input
-     */
     protected function updateVerifiedUser(User $user, array $input): void
     {
         $user->forceFill([

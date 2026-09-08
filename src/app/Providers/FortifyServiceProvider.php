@@ -17,20 +17,21 @@ use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
+    private const LOGIN_RATE_LIMIT_PER_MINUTE = 5;
+    private const TWO_FACTOR_RATE_LIMIT_PER_MINUTE = 5;
+
     public function register(): void
     {
         $this->app->bind(
             \Laravel\Fortify\Http\Requests\LoginRequest::class,
             \App\Http\Requests\LoginRequest::class
         );
+
         $this->app->singleton(RegisterResponse::class, function () {
             return new class implements RegisterResponse {
                 public function toResponse($request)
                 {
-                    return redirect()->route('profile.edit');
+                    return redirect()->route('mypage.profile.edit');
                 }
             };
         });
@@ -41,9 +42,11 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::registerView(function () {
             return view('auth.register');
         });
+
         Fortify::loginView(function () {
             return view('auth.login');
         });
+
         Fortify::createUsersUsing(CreateNewUser::class);
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
@@ -51,12 +54,19 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
 
         RateLimiter::for('login', function (Request $request) {
-            $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
-            return Limit::perMinute(5)->by($throttleKey);
+            $throttleKey = Str::transliterate(
+                Str::lower($request->input(Fortify::username()))
+                . '|'
+                . $request->ip()
+            );
+
+            return Limit::perMinute(self::LOGIN_RATE_LIMIT_PER_MINUTE)
+                ->by($throttleKey);
         });
 
         RateLimiter::for('two-factor', function (Request $request) {
-            return Limit::perMinute(5)->by($request->session()->get('login.id'));
+            return Limit::perMinute(self::TWO_FACTOR_RATE_LIMIT_PER_MINUTE)
+                ->by($request->session()->get('login.id'));
         });
     }
 }

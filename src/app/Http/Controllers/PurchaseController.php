@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\PurchaseRequest;
+use App\Models\Item;
+use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
-    public function create(Request $request, $item_id)
+    private const PURCHASE_ADDRESS_SESSION_PREFIX = 'purchase_address.';
+
+    public function create(Request $request, $itemId)
     {
-        $item = Item::findOrFail($item_id);
-
+        $item = Item::findOrFail($itemId);
         $profile = $request->user()->profile;
-
-        $sessionAddress = session()->get("purchase_address.{$item->id}");
+        $sessionAddress = session()->get(
+            self::PURCHASE_ADDRESS_SESSION_PREFIX . $item->id
+        );
 
         return view('purchases.create', compact(
             'item',
@@ -25,73 +26,73 @@ class PurchaseController extends Controller
         ));
     }
 
-    public function store(PurchaseRequest $request, $item_id)
+    public function store(PurchaseRequest $request, $itemId)
     {
-        $item = Item::findOrFail($item_id);
+        $item = Item::findOrFail($itemId);
 
         if ($item->purchase) {
             return redirect()->route('items.show', [
-                'item_id' => $item->id,
+                'itemId' => $item->id,
             ]);
         }
 
         $user = $request->user();
+        $shippingAddress = session()->get(
+            self::PURCHASE_ADDRESS_SESSION_PREFIX . $item->id
+        );
 
-        $address = session()->get("purchase_address.{$item->id}");
-
-        if (!$address) {
-            $profile = $user->profile;
-
-            if ($profile) {
-                $address = [
-                    'postal_code' => $profile->postal_code,
-                    'address' => $profile->address,
-                    'building' => $profile->building,
-                ];
-            }
+        if (!$shippingAddress && $user->profile) {
+            $shippingAddress = [
+                'postal_code' => $user->profile->postal_code,
+                'address' => $user->profile->address,
+                'building' => $user->profile->building,
+            ];
         }
 
-        if (!$address) {
+        if (!$shippingAddress) {
             return redirect()->route('purchases.address.edit', [
-                'item_id' => $item->id,
+                'itemId' => $item->id,
             ]);
         }
 
-        DB::transaction(function () use ($item, $user, $address, $request) {
-            $item->purchase()->create([
-                'user_id' => $user->id,
-                'payment_method' => $request->payment_method,
-                'shipping_postal_code' => $address['postal_code'],
-                'shipping_address' => $address['address'],
-                'shipping_building' => $address['building'] ?? null,
-            ]);
-        });
+        $validatedData = $request->validated();
+
+        $item->purchase()->create([
+            'user_id' => $user->id,
+            'payment_method' => $validatedData['payment_method'],
+            'shipping_postal_code' => $shippingAddress['postal_code'],
+            'shipping_address' => $shippingAddress['address'],
+            'shipping_building' => $shippingAddress['building'] ?? null,
+        ]);
 
         return redirect()->route('items.show', [
-            'item_id' => $item->id,
+            'itemId' => $item->id,
         ]);
     }
 
-    public function edit($item_id)
+    public function edit($itemId)
     {
-        $item = Item::findOrFail($item_id);
+        $item = Item::findOrFail($itemId);
 
         return view('purchases.address', compact('item'));
     }
 
-    public function updateAddress(AddressRequest $request, $item_id)
+    public function updateAddress(AddressRequest $request, $itemId)
     {
-        $item = Item::findOrFail($item_id);
+        $item = Item::findOrFail($itemId);
+        $validatedData = $request->validated();
 
-        session()->put("purchase_address.{$item->id}", [
-            'postal_code' => $request->postal_code,
-            'address' => $request->address,
-            'building' => $request->building,
-        ]);
+        session()->put(
+            self::PURCHASE_ADDRESS_SESSION_PREFIX . $item->id,
+            [
+                'postal_code' => $validatedData['postal_code'],
+                'address' => $validatedData['address'],
+                'building' => $validatedData['building'] ?? null,
+            ]
+        );
 
         return redirect()->route('purchases.create', [
-            'item_id' => $item->id,
+            'itemId' => $item->id,
         ]);
     }
 }
-

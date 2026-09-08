@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('profiles', function (Blueprint $table) {
@@ -16,19 +13,16 @@ return new class extends Migration
             $table->foreignId('user_id')
                 ->unique()
                 ->constrained('users');
-            $table->string('profile_image',255)
+            $table->string('profile_image', 255)
                 ->nullable();
-            $table->string('postal_code',8);
-            $table->string('address',255);
-            $table->string('building',255)
+            $table->string('postal_code', 8);
+            $table->string('address', 255);
+            $table->string('building', 255)
                 ->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('profiles');

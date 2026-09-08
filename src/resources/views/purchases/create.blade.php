@@ -1,7 +1,7 @@
 <h1>商品購入</h1>
 
 <img
-    src="{{ $item->image_path }}"
+    src="{{ asset($item->image_path) }}"
     alt="{{ $item->name }}"
     width="200"
 >
@@ -32,11 +32,11 @@
     <p>配送先が登録されていません</p>
 @endif
 
-<a href="{{ route('purchases.address.edit', ['item_id' => $item->id]) }}">
+<a href="{{ route('purchases.address.edit', ['itemId' => $item->id]) }}">
     変更する
 </a>
 
-<form action="{{ route('purchases.store', ['item_id' => $item->id]) }}" method="POST">
+<form action="{{ route('purchases.store', ['itemId' => $item->id]) }}" method="POST">
     @csrf
 
     <div>
@@ -58,7 +58,7 @@
         </select>
 
         @error('payment_method')
-            <p style="color: red;">{{ $message }}</p>
+            <p>{{ $message }}</p>
         @enderror
 
         <p>

@@ -31,9 +31,9 @@
 <div>
     @foreach ($items as $item)
         <div>
-            <a href="{{ route('items.show', ['item_id' => $item->id]) }}">
+            <a href="{{ route('items.show', ['itemId' => $item->id]) }}">
                 <img
-                    src="{{ $item->image_path }}"
+                    src="{{ asset($item->image_path) }}"
                     alt="{{ $item->name }}"
                     width="200"
                 >

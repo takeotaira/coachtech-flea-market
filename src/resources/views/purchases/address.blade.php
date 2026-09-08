@@ -1,6 +1,6 @@
 <h1>住所の変更</h1>
 
-<form action="{{ route('purchases.address.update', ['item_id' => $item->id]) }}" method="POST">
+<form action="{{ route('purchases.address.update', ['itemId' => $item->id]) }}" method="POST">
     @csrf
 
     <div>

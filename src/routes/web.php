@@ -2,42 +2,50 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CommentController;
+use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
-    Route::get('/mypage/profile', [ProfileController::class, 'edit'])
-        ->name('profile.edit');
+    Route::get('/mypage', [ProfileController::class, 'show'])
+        ->name('mypage');
 
-    Route::post('/item/{item_id}/like', [LikeController::class, 'store'])
+    Route::get('/mypage/profile', [ProfileController::class, 'edit'])
+        ->name('mypage.profile.edit');
+
+    Route::patch('/mypage/profile', [ProfileController::class, 'update'])
+        ->name('mypage.profile.update');
+
+    Route::post('/item/{itemId}/like', [LikeController::class, 'store'])
         ->name('likes.store');
 
-    Route::delete('/item/{item_id}/like', [LikeController::class, 'destroy'])
+    Route::delete('/item/{itemId}/like', [LikeController::class, 'destroy'])
         ->name('likes.destroy');
 
-    Route::post('/item/{item_id}/comment', [CommentController::class, 'store'])
+    Route::post('/item/{itemId}/comment', [CommentController::class, 'store'])
         ->name('comments.store');
 
-    Route::get('/purchase/{item_id}', [PurchaseController::class, 'create'])
+    Route::get('/purchase/{itemId}', [PurchaseController::class, 'create'])
         ->name('purchases.create');
 
-    Route::post('/purchase/{item_id}', [PurchaseController::class, 'store'])
+    Route::post('/purchase/{itemId}', [PurchaseController::class, 'store'])
         ->name('purchases.store');
 
-    Route::get('/purchase/address/{item_id}', [PurchaseController::class, 'edit'])
+    Route::get('/purchase/address/{itemId}', [PurchaseController::class, 'edit'])
         ->name('purchases.address.edit');
 
-    Route::post('/purchase/address/{item_id}', [PurchaseController::class, 'updateAddress'])
+    Route::post('/purchase/address/{itemId}', [PurchaseController::class, 'updateAddress'])
         ->name('purchases.address.update');
+
+    Route::get('/sell', [ItemController::class, 'create'])
+        ->name('items.create');
+
+    Route::post('/sell', [ItemController::class, 'store'])
+        ->name('items.store');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/item/{item_id}', [ItemController::class, 'show'])
+Route::get('/item/{itemId}', [ItemController::class, 'show'])
     ->name('items.show');
 
 Route::get('/', [ItemController::class, 'index'])

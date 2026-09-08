@@ -11,9 +11,4 @@ class AppServiceProvider extends ServiceProvider
     {
         Sanctum::ignoreMigrations();
     }
-
-    public function boot(): void
-    {
-        //
-    }
 }
