@@ -65,5 +65,7 @@
         <button type="submit">登録する</button>
     </form>
 
+    <a href="{{ route('login') }}">ログインはこちら</a>
+
 </body>
 </html>

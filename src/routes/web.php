@@ -7,7 +7,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/mypage', [ProfileController::class, 'show'])
         ->name('mypage');
 
@@ -31,6 +31,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/purchase/{itemId}', [PurchaseController::class, 'store'])
         ->name('purchases.store');
+
+    Route::get('/purchase/{itemId}/success', [PurchaseController::class, 'success'])
+        ->name('purchases.success');
 
     Route::get('/purchase/address/{itemId}', [PurchaseController::class, 'edit'])
         ->name('purchases.address.edit');

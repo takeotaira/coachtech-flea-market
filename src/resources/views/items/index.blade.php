@@ -1,17 +1,4 @@
-<h1>商品一覧</h1>
-
-<div>
-    <a href="{{ route('items.index', ['keyword' => request('keyword')]) }}">
-        おすすめ
-    </a>
-
-    <a href="{{ route('items.index', [
-        'tab' => 'mylist',
-        'keyword' => request('keyword')
-    ]) }}">
-        マイリスト
-    </a>
-
+<header>
     <form action="{{ route('items.index') }}" method="GET">
         @if (request('tab') === 'mylist')
             <input type="hidden" name="tab" value="mylist">
@@ -24,8 +11,39 @@
             placeholder="なにをお探しですか？"
         >
 
-        <button type="submit">検索</button>
+        <button type="submit">
+            検索
+        </button>
     </form>
+
+    @auth
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+
+            <button type="submit">
+                ログアウト
+            </button>
+        </form>
+    @else
+        <a href="{{ route('login') }}">
+            ログイン
+        </a>
+    @endauth
+</header>
+
+<div>
+    <a href="{{ route('items.index', [
+        'keyword' => request('keyword')
+    ]) }}">
+        おすすめ
+    </a>
+
+    <a href="{{ route('items.index', [
+        'tab' => 'mylist',
+        'keyword' => request('keyword')
+    ]) }}">
+        マイリスト
+    </a>
 </div>
 
 <div>
