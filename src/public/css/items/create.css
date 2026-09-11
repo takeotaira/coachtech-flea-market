@@ -1,0 +1,157 @@
+.sell {
+    padding: 50px 20px 100px;
+}
+
+.sell__inner {
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+.sell__title {
+    margin: 0 0 45px;
+    font-size: 36px;
+    text-align: center;
+}
+
+.sell-form__group {
+    margin-bottom: 35px;
+}
+
+.sell-form__label {
+    display: block;
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.image-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    border: 1px dashed #5f5f5f;
+    border-radius: 4px;
+}
+
+.image-upload__button {
+    padding: 8px 18px;
+    border: 2px solid #ff5555;
+    border-radius: 6px;
+    color: #ff5555;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.image-upload__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.sell-section {
+    margin-top: 65px;
+}
+
+.sell-section__title {
+    margin: 0 0 35px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #5f5f5f;
+    color: #5f5f5f;
+    font-size: 30px;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px 15px;
+    padding: 20px 5px;
+}
+
+.category__input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.category__label {
+    display: inline-block;
+    padding: 4px 16px;
+    border: 2px solid #ff5555;
+    border-radius: 20px;
+    color: #ff5555;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.category__input:checked+.category__label {
+    background: #ff5555;
+    color: #fff;
+}
+
+.sell-form__input,
+.sell-form__select,
+.sell-form__textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 20px;
+}
+
+.sell-form__input,
+.sell-form__select {
+    height: 55px;
+}
+
+.sell-form__textarea {
+    height: 125px;
+    font: inherit;
+    resize: vertical;
+}
+
+.sell-form__select {
+    color: #5f5f5f;
+}
+
+.price-input {
+    position: relative;
+}
+
+.price-input__currency {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    z-index: 1;
+    font-size: 24px;
+    transform: translateY(-50%);
+}
+
+.price-input__field {
+    padding-left: 40px;
+}
+
+.sell-form__error {
+    margin: 5px 0 0;
+    color: #ff5555;
+    font-size: 16px;
+}
+
+.sell-form__button {
+    width: 100%;
+    margin-top: 55px;
+    padding: 13px;
+    border: 0;
+    border-radius: 4px;
+    background: #ff5555;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    cursor: pointer;
+}

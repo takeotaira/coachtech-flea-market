@@ -1,98 +1,210 @@
-<h1>{{ $item->name }}</h1>
+@extends('layouts.app')
 
-<img src="{{ asset($item->image_path) }}" alt="{{ $item->name }}" width="300">
+@section('title', $item->name)
 
-<p>ブランド名：{{ $item->brand_name ?? 'なし' }}</p>
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/items/show.css') }}">
+@endsection
 
-<p>価格：{{ $item->price }}円</p>
+@section('content')
+    <main class="item-detail">
+        <div class="item-detail__image-area">
+            <img
+                class="item-detail__image"
+                src="{{ asset($item->image_path) }}"
+                alt="{{ $item->name }}"
+            >
+        </div>
 
-<p>いいね数：{{ $item->likes_count }}</p>
+        <div class="item-detail__content">
+            <section class="item-summary">
+                <h1 class="item-summary__name">{{ $item->name }}</h1>
 
-@auth
-    @if ($isLiked)
-        <form action="{{ route('likes.destroy', ['itemId' => $item->id]) }}" method="POST">
-            @csrf
-            @method('DELETE')
+                <p class="item-summary__brand">
+                    {{ $item->brand_name ?? 'ブランド名なし' }}
+                </p>
 
-            <button type="submit" class="like-button like-button--active">
-                ★
-            </button>
-        </form>
-    @else
-        <form action="{{ route('likes.store', ['itemId' => $item->id]) }}" method="POST">
-            @csrf
+                <p class="item-summary__price">
+                    <span>¥</span>
+                    {{ number_format($item->price) }}
+                    <span class="item-summary__tax">（税込）</span>
+                </p>
 
-            <button type="submit" class="like-button">
-                ☆
-            </button>
-        </form>
-    @endif
-@endauth
+                <div class="item-summary__reactions">
+                    <div class="reaction">
+                        @auth
+                            @if ($isLiked)
+                                <form
+                                    action="{{ route('likes.destroy', ['itemId' => $item->id]) }}"
+                                    method="POST"
+                                >
+                                    @csrf
+                                    @method('DELETE')
 
-<div class="comment-count">
-    <span class="comment-icon">💬</span>
-    <span>{{ $item->comments_count }}</span>
-</div>
+                                    <button
+                                        class="reaction__button"
+                                        type="submit"
+                                        aria-label="いいねを解除する"
+                                    >
+                                        <img
+                                            class="reaction__icon"
+                                            src="{{ asset('images/heart-pink.png') }}"
+                                            alt=""
+                                        >
+                                    </button>
+                                </form>
+                            @else
+                                <form
+                                    action="{{ route('likes.store', ['itemId' => $item->id]) }}"
+                                    method="POST"
+                                >
+                                    @csrf
 
-@auth
-    <form action="{{ route('comments.store', ['itemId' => $item->id]) }}" method="POST">
-        @csrf
+                                    <button
+                                        class="reaction__button"
+                                        type="submit"
+                                        aria-label="いいねする"
+                                    >
+                                        <img
+                                            class="reaction__icon"
+                                            src="{{ asset('images/heart-default.png') }}"
+                                            alt=""
+                                        >
+                                    </button>
+                                </form>
+                            @endif
+                        @else
+                            <img
+                                class="reaction__icon"
+                                src="{{ asset('images/heart-default.png') }}"
+                                alt="いいね"
+                            >
+                        @endauth
 
-        <label for="content">商品へのコメント</label>
+                        <span class="reaction__count">
+                            {{ $item->likes_count }}
+                        </span>
+                    </div>
 
-        <textarea
-            id="content"
-            name="content"
-        >{{ old('content') }}</textarea>
+                    <div class="reaction">
+                        <img
+                            class="reaction__icon"
+                            src="{{ asset('images/comment.png') }}"
+                            alt="コメント"
+                        >
 
-        @error('content')
-            <p>{{ $message }}</p>
-        @enderror
+                        <span class="reaction__count">
+                            {{ $item->comments_count }}
+                        </span>
+                    </div>
+                </div>
 
-        <button type="submit">コメントを送信する</button>
-    </form>
-@endauth
+                @if ($item->purchase)
+                    <p class="purchase-button purchase-button--sold">
+                        Sold
+                    </p>
+                @else
+                    @auth
+                        <a
+                            class="purchase-button"
+                            href="{{ route('purchases.create', ['itemId' => $item->id]) }}"
+                        >
+                            購入手続きへ
+                        </a>
+                    @endauth
+                @endif
+            </section>
 
-<h2>商品説明</h2>
-<p>{{ $item->description }}</p>
+            <section class="item-description">
+                <h2 class="section-title">商品説明</h2>
 
-<p>カテゴリー：</p>
-@foreach ($item->categories as $category)
-    <span>{{ $category->name }}</span>
-@endforeach
+                <p class="item-description__text">
+                    {{ $item->description }}
+                </p>
+            </section>
 
-@foreach ($item->comments as $comment)
-    <p>
-        {{ $comment->user->name }}：
-        {{ $comment->content }}
-    </p>
-@endforeach
+            <section class="item-information">
+                <h2 class="section-title">商品の情報</h2>
 
-<p>
-    商品状態：
-    {{ $item->condition->name }}
-</p>
+                <dl class="item-information__list">
+                    <div class="item-information__row">
+                        <dt>商品カテゴリー</dt>
+                        <dd class="item-information__categories">
+                            @foreach ($item->categories as $category)
+                                <span class="category">
+                                    {{ $category->name }}
+                                </span>
+                            @endforeach
+                        </dd>
+                    </div>
 
-@if ($item->purchase)
-    <p>Sold</p>
-@else
-    @auth
-        <a href="{{ route('purchases.create', ['itemId' => $item->id]) }}">
-            購入手続きへ
-        </a>
-    @endauth
-@endif
+                    <div class="item-information__row">
+                        <dt>商品の状態</dt>
+                        <dd>{{ $item->condition->name }}</dd>
+                    </div>
+                </dl>
+            </section>
 
-<style>
-    .like-button {
-        border: none;
-        background: none;
-        font-size: 32px;
-        cursor: pointer;
-        color: #777;
-    }
+            <section class="comments">
+                <h2 class="comments__title">
+                    コメント（{{ $item->comments_count }}）
+                </h2>
 
-    .like-button--active {
-        color: #ff5555;
-    }
-</style>
+                @foreach ($item->comments as $comment)
+                    <article class="comment">
+                        <div class="comment__user">
+                            @if ($comment->user->profile?->profile_image)
+                                <img
+                                    class="comment__profile-image"
+                                    src="{{ asset($comment->user->profile->profile_image) }}"
+                                    alt="{{ $comment->user->name }}"
+                                >
+
+                            @else
+                                <span class="comment__profile-placeholder"></span>
+                            @endif
+
+                            <span class="comment__user-name">
+                                {{ $comment->user->name }}
+                            </span>
+                        </div>
+
+                        <p class="comment__content">
+                            {{ $comment->content }}
+                        </p>
+                    </article>
+                @endforeach
+
+                @auth
+                    <form
+                        class="comment-form"
+                        action="{{ route('comments.store', ['itemId' => $item->id]) }}"
+                        method="POST"
+                    >
+                        @csrf
+
+                        <label class="comment-form__label" for="content">
+                            商品へのコメント
+                        </label>
+
+                        <textarea
+                            class="comment-form__textarea"
+                            id="content"
+                            name="content"
+                        >{{ old('content') }}</textarea>
+
+                        @error('content')
+                            <p class="comment-form__error">
+                                {{ $message }}
+                            </p>
+                        @enderror
+
+                        <button class="comment-form__button" type="submit">
+                            コメントを送信する
+                        </button>
+                    </form>
+                @endauth
+            </section>
+        </div>
+    </main>
+@endsection

@@ -1,45 +1,81 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>ログイン</title>
-</head>
-<body>
+@extends('layouts.auth')
 
-    <h1>ログイン</h1>
+@section('title', 'ログイン')
 
-    <form action="{{ route('login') }}" method="POST" novalidate>
-        @csrf
+@section('content')
+    <div class="auth-container">
+        <h1 class="auth-container__title">
+            ログイン
+        </h1>
 
-        <div>
-            <label for="email">メールアドレス</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value="{{ old('email') }}"
+        <form
+            class="auth-form"
+            action="{{ route('login') }}"
+            method="POST"
+            novalidate
+        >
+            @csrf
+
+            <div class="auth-form__group">
+                <label
+                    class="auth-form__label"
+                    for="email"
+                >
+                    メールアドレス
+                </label>
+
+                <input
+                    class="auth-form__input"
+                    id="email"
+                    type="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    autocomplete="email"
+                >
+
+                @error('email')
+                    <p class="auth-form__error">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+
+            <div class="auth-form__group">
+                <label
+                    class="auth-form__label"
+                    for="password"
+                >
+                    パスワード
+                </label>
+
+                <input
+                    class="auth-form__input"
+                    id="password"
+                    type="password"
+                    name="password"
+                    autocomplete="current-password"
+                >
+
+                @error('password')
+                    <p class="auth-form__error">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+
+            <button
+                class="auth-form__button"
+                type="submit"
             >
+                ログイン
+            </button>
+        </form>
 
-            @error('email')
-                <p>{{ $message }}</p>
-            @enderror
-        </div>
-
-        <div>
-            <label for="password">パスワード</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-            >
-            @error('password')
-                <p>{{ $message }}</p>
-            @enderror
-        </div>
-
-        <button type="submit">ログイン</button>
-    </form>
-
-    <a href="{{ route('register') }}">会員登録はこちら</a>
-</body>
-</html>
+        <a
+            class="auth-container__link"
+            href="{{ route('register') }}"
+        >
+            会員登録はこちら
+        </a>
+    </div>
+@endsection

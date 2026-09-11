@@ -1,90 +1,144 @@
-<h1>プロフィール設定</h1>
+@extends('layouts.app')
 
-<form
-    action="{{ route('mypage.profile.update') }}"
-    method="POST"
-    enctype="multipart/form-data"
->
-    @csrf
-    @method('PATCH')
+@section('title', 'プロフィール設定')
 
-    <div>
-        @if ($user->profile && $user->profile->profile_image)
-            <img
-                src="{{ asset($user->profile->profile_image) }}"
-                alt="プロフィール画像"
-                width="100"
+@section('css')
+    <link rel="stylesheet" href="{{ asset('css/mypage/profile.css') }}">
+@endsection
+
+@section('content')
+    <main class="profile-setting">
+        <div class="profile-setting__inner">
+            <h1 class="profile-setting__title">
+                プロフィール設定
+            </h1>
+
+            <form
+                class="profile-form"
+                action="{{ route('mypage.profile.update') }}"
+                method="POST"
+                enctype="multipart/form-data"
             >
-        @endif
+                @csrf
+                @method('PATCH')
 
-        <input
-            type="file"
-            name="profile_image"
-            accept=".jpg,.jpeg,.png"
-        >
+                <div class="profile-form__image-group">
+                    @if ($user->profile && $user->profile->profile_image)
+                        <img
+                            class="profile-form__image"
+                            src="{{ asset($user->profile->profile_image) }}"
+                            alt="{{ $user->name }}"
+                        >
+                    @else
+                        <span class="profile-form__image-placeholder"></span>
+                    @endif
 
-        @error('profile_image')
-            <p>{{ $message }}</p>
-        @enderror
-    </div>
+                    <label
+                        class="profile-form__image-button"
+                        for="profile_image"
+                    >
+                        画像を選択する
+                    </label>
 
-    <div>
-        <label>ユーザー名</label>
+                    <input
+                        class="profile-form__file-input"
+                        type="file"
+                        id="profile_image"
+                        name="profile_image"
+                        accept=".jpg,.jpeg,.png"
+                    >
+                </div>
 
-        <input
-            type="text"
-            name="name"
-            value="{{ old('name', $user->name) }}"
-        >
+                @error('profile_image')
+                    <p class="profile-form__error">
+                        {{ $message }}
+                    </p>
+                @enderror
 
-        @error('name')
-            <p>{{ $message }}</p>
-        @enderror
-    </div>
+                <div class="profile-form__group">
+                    <label class="profile-form__label" for="name">
+                        ユーザー名
+                    </label>
 
-    <div>
-        <label>郵便番号</label>
+                    <input
+                        class="profile-form__input"
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ old('name', $user->name) }}"
+                    >
 
-        <input
-            type="text"
-            name="postal_code"
-            value="{{ old('postal_code', $user->profile?->postal_code) }}"
-        >
+                    @error('name')
+                        <p class="profile-form__error">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
 
-        @error('postal_code')
-            <p>{{ $message }}</p>
-        @enderror
-    </div>
+                <div class="profile-form__group">
+                    <label class="profile-form__label" for="postal_code">
+                        郵便番号
+                    </label>
 
-    <div>
-        <label>住所</label>
+                    <input
+                        class="profile-form__input"
+                        type="text"
+                        id="postal_code"
+                        name="postal_code"
+                        value="{{ old('postal_code', $user->profile?->postal_code) }}"
+                    >
 
-        <input
-            type="text"
-            name="address"
-            value="{{ old('address', $user->profile?->address) }}"
-        >
+                    @error('postal_code')
+                        <p class="profile-form__error">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
 
-        @error('address')
-            <p>{{ $message }}</p>
-        @enderror
-    </div>
+                <div class="profile-form__group">
+                    <label class="profile-form__label" for="address">
+                        住所
+                    </label>
 
-    <div>
-        <label>建物名</label>
+                    <input
+                        class="profile-form__input"
+                        type="text"
+                        id="address"
+                        name="address"
+                        value="{{ old('address', $user->profile?->address) }}"
+                    >
 
-        <input
-            type="text"
-            name="building"
-            value="{{ old('building', $user->profile?->building) }}"
-        >
+                    @error('address')
+                        <p class="profile-form__error">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
 
-        @error('building')
-            <p>{{ $message }}</p>
-        @enderror
-    </div>
+                <div class="profile-form__group">
+                    <label class="profile-form__label" for="building">
+                        建物名
+                    </label>
 
-    <button type="submit">
-        更新する
-    </button>
-</form>
+                    <input
+                        class="profile-form__input"
+                        type="text"
+                        id="building"
+                        name="building"
+                        value="{{ old('building', $user->profile?->building) }}"
+                    >
+
+                    @error('building')
+                        <p class="profile-form__error">
+                            {{ $message }}
+                        </p>
+                    @enderror
+                </div>
+
+                <button class="profile-form__button" type="submit">
+                    更新する
+                </button>
+            </form>
+        </div>
+    </main>
+@endsection
