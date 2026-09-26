@@ -9,39 +9,39 @@
 @section('content')
     <main class="purchase">
         <form
-            class="purchase__form"
+            class="purchase-form"
             action="{{ route('purchases.store', ['itemId' => $item->id]) }}"
             method="POST"
         >
             @csrf
 
-            <div class="purchase__main">
+            <div class="purchase-main">
                 <section class="purchase-item">
                     <img
-                        class="purchase-item__image"
+                        class="purchase-item-image"
                         src="{{ asset($item->image_path) }}"
                         alt="{{ $item->name }}"
                     >
 
-                    <div class="purchase-item__information">
-                        <h1 class="purchase-item__name">
+                    <div class="purchase-item-information">
+                        <h1 class="purchase-item-name">
                             {{ $item->name }}
                         </h1>
 
-                        <p class="purchase-item__price">
+                        <p class="purchase-item-price">
                             ¥{{ number_format($item->price) }}
                         </p>
                     </div>
                 </section>
 
                 <section class="purchase-section">
-                    <h2 class="purchase-section__title">
+                    <h2 class="purchase-section-title">
                         支払い方法
                     </h2>
 
-                    <div class="purchase-section__content">
+                    <div class="purchase-section-content">
                         <select
-                            class="purchase-section__select"
+                            class="purchase-section-select"
                             id="payment_method"
                             name="payment_method"
                         >
@@ -63,7 +63,7 @@
                         </select>
 
                         @error('payment_method')
-                            <p class="purchase-section__error">
+                            <p class="purchase-section-error">
                                 {{ $message }}
                             </p>
                         @enderror
@@ -71,20 +71,20 @@
                 </section>
 
                 <section class="purchase-section">
-                    <div class="purchase-section__heading">
-                        <h2 class="purchase-section__title">
+                    <div class="purchase-section-heading">
+                        <h2 class="purchase-section-title">
                             配送先
                         </h2>
 
                         <a
-                            class="purchase-section__change-link"
+                            class="purchase-section-change-link"
                             href="{{ route('purchases.address.edit', ['itemId' => $item->id]) }}"
                         >
                             変更する
                         </a>
                     </div>
 
-                    <div class="purchase-section__address">
+                    <div class="purchase-section-address">
                         @if ($sessionAddress)
                             <p>〒 {{ $sessionAddress['postal_code'] }}</p>
                             <p>{{ $sessionAddress['address'] }}</p>
@@ -106,14 +106,14 @@
                 </section>
             </div>
 
-            <aside class="purchase__sidebar">
+            <aside class="purchase-sidebar">
                 <dl class="purchase-summary">
-                    <div class="purchase-summary__row">
+                    <div class="purchase-summary-row">
                         <dt>商品代金</dt>
                         <dd>¥{{ number_format($item->price) }}</dd>
                     </div>
 
-                    <div class="purchase-summary__row">
+                    <div class="purchase-summary-row">
                         <dt>支払い方法</dt>
                         <dd id="selected-payment-method">
                             {{ old('payment_method') ?: '未選択' }}
@@ -121,7 +121,7 @@
                     </div>
                 </dl>
 
-                <button class="purchase__button" type="submit">
+                <button class="purchase-button" type="submit">
                     購入する
                 </button>
             </aside>

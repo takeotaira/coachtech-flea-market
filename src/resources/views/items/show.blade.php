@@ -8,33 +8,34 @@
 
 @section('content')
     <main class="item-detail">
-        <div class="item-detail__image-area">
+        <div class="item-detail-image-area">
             <img
-                class="item-detail__image"
+                class="item-detail-image"
                 src="{{ asset($item->image_path) }}"
                 alt="{{ $item->name }}"
             >
         </div>
 
-        <div class="item-detail__content">
+        <div class="item-detail-content">
             <section class="item-summary">
-                <h1 class="item-summary__name">{{ $item->name }}</h1>
+                <h1 class="item-summary-name">{{ $item->name }}</h1>
 
-                <p class="item-summary__brand">
+                <p class="item-summary-brand">
                     {{ $item->brand_name ?? 'ブランド名なし' }}
                 </p>
 
-                <p class="item-summary__price">
+                <p class="item-summary-price">
                     <span>¥</span>
                     {{ number_format($item->price) }}
-                    <span class="item-summary__tax">（税込）</span>
+                    <span class="item-summary-tax">（税込）</span>
                 </p>
 
-                <div class="item-summary__reactions">
+                <div class="item-summary-reactions">
                     <div class="reaction">
                         @auth
                             @if ($isLiked)
                                 <form
+                                    class="reaction-form"
                                     action="{{ route('likes.destroy', ['itemId' => $item->id]) }}"
                                     method="POST"
                                 >
@@ -42,12 +43,12 @@
                                     @method('DELETE')
 
                                     <button
-                                        class="reaction__button"
+                                        class="reaction-button"
                                         type="submit"
                                         aria-label="いいねを解除する"
                                     >
                                         <img
-                                            class="reaction__icon"
+                                            class="reaction-icon"
                                             src="{{ asset('images/heart-pink.png') }}"
                                             alt=""
                                         >
@@ -55,18 +56,19 @@
                                 </form>
                             @else
                                 <form
+                                    class="reaction-form"
                                     action="{{ route('likes.store', ['itemId' => $item->id]) }}"
                                     method="POST"
                                 >
                                     @csrf
 
                                     <button
-                                        class="reaction__button"
+                                        class="reaction-button"
                                         type="submit"
                                         aria-label="いいねする"
                                     >
                                         <img
-                                            class="reaction__icon"
+                                            class="reaction-icon"
                                             src="{{ asset('images/heart-default.png') }}"
                                             alt=""
                                         >
@@ -75,32 +77,32 @@
                             @endif
                         @else
                             <img
-                                class="reaction__icon"
+                                class="reaction-icon"
                                 src="{{ asset('images/heart-default.png') }}"
                                 alt="いいね"
                             >
                         @endauth
 
-                        <span class="reaction__count">
+                        <span class="reaction-count">
                             {{ $item->likes_count }}
                         </span>
                     </div>
 
                     <div class="reaction">
                         <img
-                            class="reaction__icon"
+                            class="reaction-icon"
                             src="{{ asset('images/comment.png') }}"
                             alt="コメント"
                         >
 
-                        <span class="reaction__count">
+                        <span class="reaction-count">
                             {{ $item->comments_count }}
                         </span>
                     </div>
                 </div>
 
                 @if ($item->purchase)
-                    <p class="purchase-button purchase-button--sold">
+                    <p class="purchase-button purchase-button-sold">
                         Sold
                     </p>
                 @else
@@ -118,7 +120,7 @@
             <section class="item-description">
                 <h2 class="section-title">商品説明</h2>
 
-                <p class="item-description__text">
+                <p class="item-description-text">
                     {{ $item->description }}
                 </p>
             </section>
@@ -126,10 +128,10 @@
             <section class="item-information">
                 <h2 class="section-title">商品の情報</h2>
 
-                <dl class="item-information__list">
-                    <div class="item-information__row">
+                <dl class="item-information-list">
+                    <div class="item-information-row">
                         <dt>商品カテゴリー</dt>
-                        <dd class="item-information__categories">
+                        <dd class="item-information-categories">
                             @foreach ($item->categories as $category)
                                 <span class="category">
                                     {{ $category->name }}
@@ -138,7 +140,7 @@
                         </dd>
                     </div>
 
-                    <div class="item-information__row">
+                    <div class="item-information-row">
                         <dt>商品の状態</dt>
                         <dd>{{ $item->condition->name }}</dd>
                     </div>
@@ -146,30 +148,30 @@
             </section>
 
             <section class="comments">
-                <h2 class="comments__title">
+                <h2 class="comments-title">
                     コメント（{{ $item->comments_count }}）
                 </h2>
 
                 @foreach ($item->comments as $comment)
                     <article class="comment">
-                        <div class="comment__user">
+                        <div class="comment-user">
                             @if ($comment->user->profile?->profile_image)
                                 <img
-                                    class="comment__profile-image"
+                                    class="comment-profile-image"
                                     src="{{ asset($comment->user->profile->profile_image) }}"
                                     alt="{{ $comment->user->name }}"
                                 >
 
                             @else
-                                <span class="comment__profile-placeholder"></span>
+                                <span class="comment-profile-placeholder"></span>
                             @endif
 
-                            <span class="comment__user-name">
+                            <span class="comment-user-name">
                                 {{ $comment->user->name }}
                             </span>
                         </div>
 
-                        <p class="comment__content">
+                        <p class="comment-content">
                             {{ $comment->content }}
                         </p>
                     </article>
@@ -183,23 +185,23 @@
                     >
                         @csrf
 
-                        <label class="comment-form__label" for="content">
+                        <label class="comment-form-label" for="content">
                             商品へのコメント
                         </label>
 
                         <textarea
-                            class="comment-form__textarea"
+                            class="comment-form-textarea"
                             id="content"
                             name="content"
                         >{{ old('content') }}</textarea>
 
                         @error('content')
-                            <p class="comment-form__error">
+                            <p class="comment-form-error">
                                 {{ $message }}
                             </p>
                         @enderror
 
-                        <button class="comment-form__button" type="submit">
+                        <button class="comment-form-button" type="submit">
                             コメントを送信する
                         </button>
                     </form>

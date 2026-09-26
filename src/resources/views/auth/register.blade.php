@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="auth-container">
-        <h1 class="auth-container__title">
+        <h1 class="auth-container-title">
             会員登録
         </h1>
 
@@ -16,16 +16,16 @@
         >
             @csrf
 
-            <div class="auth-form__group">
+            <div class="auth-form-group">
                 <label
-                    class="auth-form__label"
+                    class="auth-form-label"
                     for="name"
                 >
                     ユーザー名
                 </label>
 
                 <input
-                    class="auth-form__input"
+                    class="auth-form-input"
                     id="name"
                     type="text"
                     name="name"
@@ -34,22 +34,22 @@
                 >
 
                 @error('name')
-                    <p class="auth-form__error">
+                    <p class="auth-form-error">
                         {{ $message }}
                     </p>
                 @enderror
             </div>
 
-            <div class="auth-form__group">
+            <div class="auth-form-group">
                 <label
-                    class="auth-form__label"
+                    class="auth-form-label"
                     for="email"
                 >
                     メールアドレス
                 </label>
 
                 <input
-                    class="auth-form__input"
+                    class="auth-form-input"
                     id="email"
                     type="email"
                     name="email"
@@ -58,22 +58,22 @@
                 >
 
                 @error('email')
-                    <p class="auth-form__error">
+                    <p class="auth-form-error">
                         {{ $message }}
                     </p>
                 @enderror
             </div>
 
-            <div class="auth-form__group">
+            <div class="auth-form-group">
                 <label
-                    class="auth-form__label"
+                    class="auth-form-label"
                     for="password"
                 >
                     パスワード
                 </label>
 
                 <input
-                    class="auth-form__input"
+                    class="auth-form-input"
                     id="password"
                     type="password"
                     name="password"
@@ -81,22 +81,22 @@
                 >
 
                 @error('password')
-                    <p class="auth-form__error">
+                    <p class="auth-form-error">
                         {{ $message }}
                     </p>
                 @enderror
             </div>
 
-            <div class="auth-form__group">
+            <div class="auth-form-group">
                 <label
-                    class="auth-form__label"
+                    class="auth-form-label"
                     for="password_confirmation"
                 >
                     確認用パスワード
                 </label>
 
                 <input
-                    class="auth-form__input"
+                    class="auth-form-input"
                     id="password_confirmation"
                     type="password"
                     name="password_confirmation"
@@ -104,14 +104,14 @@
                 >
 
                 @error('password_confirmation')
-                    <p class="auth-form__error">
+                    <p class="auth-form-error">
                         {{ $message }}
                     </p>
                 @enderror
             </div>
 
             <button
-                class="auth-form__button"
+                class="auth-form-button"
                 type="submit"
             >
                 登録する
@@ -119,7 +119,7 @@
         </form>
 
         <a
-            class="auth-container__link"
+            class="auth-container-link"
             href="{{ route('login') }}"
         >
             ログインはこちら

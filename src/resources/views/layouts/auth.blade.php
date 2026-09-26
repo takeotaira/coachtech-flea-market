@@ -19,11 +19,11 @@
 <body>
     <header class="auth-header">
         <a
-            class="auth-header__logo-link"
+            class="auth-header-logo-link"
             href="{{ route('items.index') }}"
         >
             <img
-                class="auth-header__logo"
+                class="auth-header-logo"
                 src="{{ asset('images/coachtech-logo.png') }}"
                 alt="COACHTECH"
             >

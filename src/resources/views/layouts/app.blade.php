@@ -16,18 +16,18 @@
 <body>
     <header class="header">
         <a
-            class="header__logo-link"
+            class="header-logo-link"
             href="{{ route('items.index') }}"
         >
             <img
-                class="header__logo"
+                class="header-logo"
                 src="{{ asset('images/coachtech-logo.png') }}"
                 alt="COACHTECH"
             >
         </a>
 
         <form
-            class="header__search"
+            class="header-search"
             action="{{ route('items.index') }}"
             method="GET"
         >
@@ -40,7 +40,7 @@
             @endif
 
             <input
-                class="header__search-input"
+                class="header-search-input"
                 type="text"
                 name="keyword"
                 value="{{ request('keyword') }}"
@@ -48,16 +48,16 @@
             >
         </form>
 
-        <nav class="header__nav">
+        <nav class="header-nav">
             @auth
                 <form
-                    class="header__logout-form"
+                    class="header-logout-form"
                     action="{{ route('logout') }}"
                     method="POST"
                 >
                     @csrf
                     <button
-                        class="header__nav-button"
+                        class="header-nav-button"
                         type="submit"
                     >
                         ログアウト
@@ -65,7 +65,7 @@
                 </form>
             @else
                 <a
-                    class="header__nav-link"
+                    class="header-nav-link"
                     href="{{ route('login') }}"
                 >
                     ログイン
@@ -73,14 +73,14 @@
             @endauth
 
             <a
-                class="header__nav-link"
+                class="header-nav-link"
                 href="{{ route('mypage') }}"
             >
                 マイページ
             </a>
 
             <a
-                class="header__sell-link"
+                class="header-sell-link"
                 href="{{ route('items.create') }}"
             >
                 出品

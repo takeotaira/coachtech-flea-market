@@ -8,8 +8,8 @@
 
 @section('content')
     <main class="sell">
-        <div class="sell__inner">
-            <h1 class="sell__title">商品の出品</h1>
+        <div class="sell-inner">
+            <h1 class="sell-title">商品の出品</h1>
 
             <form
                 class="sell-form"
@@ -20,18 +20,18 @@
             >
                 @csrf
 
-                <div class="sell-form__group">
-                    <label class="sell-form__label" for="image">
+                <div class="sell-form-group">
+                    <label class="sell-form-label" for="image">
                         商品画像
                     </label>
 
                     <div class="image-upload">
-                        <label class="image-upload__button" for="image">
+                        <label class="image-upload-button" for="image">
                             画像を選択する
                         </label>
 
                         <input
-                            class="image-upload__input"
+                            class="image-upload-input"
                             type="file"
                             id="image"
                             name="image"
@@ -40,30 +40,30 @@
                     </div>
 
                     @error('image')
-                        <p class="sell-form__error">
+                        <p class="sell-form-error">
                             {{ $message }}
                         </p>
                     @enderror
                 </div>
 
                 <section class="sell-section">
-                    <h2 class="sell-section__title">商品の詳細</h2>
+                    <h2 class="sell-section-title">商品の詳細</h2>
 
-                    <div class="sell-form__group">
-                        <p class="sell-form__label">カテゴリー</p>
+                    <div class="sell-form-group">
+                        <p class="sell-form-label">カテゴリー</p>
 
                         <div class="category-list">
                             @foreach ($categories as $category)
                                 <label class="category">
                                     <input
-                                        class="category__input"
+                                        class="category-input"
                                         type="checkbox"
                                         name="categories[]"
                                         value="{{ $category->id }}"
                                         {{ in_array($category->id, old('categories', [])) ? 'checked' : '' }}
                                     >
 
-                                    <span class="category__label">
+                                    <span class="category-label">
                                         {{ $category->name }}
                                     </span>
                                 </label>
@@ -71,19 +71,19 @@
                         </div>
 
                         @error('categories')
-                            <p class="sell-form__error">
+                            <p class="sell-form-error">
                                 {{ $message }}
                             </p>
                         @enderror
                     </div>
 
-                    <div class="sell-form__group">
-                        <label class="sell-form__label" for="condition_id">
+                    <div class="sell-form-group">
+                        <label class="sell-form-label" for="condition_id">
                             商品の状態
                         </label>
 
                         <select
-                            class="sell-form__select"
+                            class="sell-form-select"
                             id="condition_id"
                             name="condition_id"
                         >
@@ -100,7 +100,7 @@
                         </select>
 
                         @error('condition_id')
-                            <p class="sell-form__error">
+                            <p class="sell-form-error">
                                 {{ $message }}
                             </p>
                         @enderror
@@ -108,17 +108,17 @@
                 </section>
 
                 <section class="sell-section">
-                    <h2 class="sell-section__title">
+                    <h2 class="sell-section-title">
                         商品名と説明
                     </h2>
 
-                    <div class="sell-form__group">
-                        <label class="sell-form__label" for="name">
+                    <div class="sell-form-group">
+                        <label class="sell-form-label" for="name">
                             商品名
                         </label>
 
                         <input
-                            class="sell-form__input"
+                            class="sell-form-input"
                             type="text"
                             id="name"
                             name="name"
@@ -126,19 +126,19 @@
                         >
 
                         @error('name')
-                            <p class="sell-form__error">
+                            <p class="sell-form-error">
                                 {{ $message }}
                             </p>
                         @enderror
                     </div>
 
-                    <div class="sell-form__group">
-                        <label class="sell-form__label" for="brand_name">
+                    <div class="sell-form-group">
+                        <label class="sell-form-label" for="brand_name">
                             ブランド名
                         </label>
 
                         <input
-                            class="sell-form__input"
+                            class="sell-form-input"
                             type="text"
                             id="brand_name"
                             name="brand_name"
@@ -146,40 +146,40 @@
                         >
 
                         @error('brand_name')
-                            <p class="sell-form__error">
+                            <p class="sell-form-error">
                                 {{ $message }}
                             </p>
                         @enderror
                     </div>
 
-                    <div class="sell-form__group">
-                        <label class="sell-form__label" for="description">
+                    <div class="sell-form-group">
+                        <label class="sell-form-label" for="description">
                             商品の説明
                         </label>
 
                         <textarea
-                            class="sell-form__textarea"
+                            class="sell-form-textarea"
                             id="description"
                             name="description"
                         >{{ old('description') }}</textarea>
 
                         @error('description')
-                            <p class="sell-form__error">
+                            <p class="sell-form-error">
                                 {{ $message }}
                             </p>
                         @enderror
                     </div>
 
-                    <div class="sell-form__group">
-                        <label class="sell-form__label" for="price">
+                    <div class="sell-form-group">
+                        <label class="sell-form-label" for="price">
                             販売価格
                         </label>
 
                         <div class="price-input">
-                            <span class="price-input__currency">¥</span>
+                            <span class="price-input-currency">¥</span>
 
                             <input
-                                class="sell-form__input price-input__field"
+                                class="sell-form-input price-input-field"
                                 type="number"
                                 id="price"
                                 name="price"
@@ -189,14 +189,14 @@
                         </div>
 
                         @error('price')
-                            <p class="sell-form__error">
+                            <p class="sell-form-error">
                                 {{ $message }}
                             </p>
                         @enderror
                     </div>
                 </section>
 
-                <button class="sell-form__button" type="submit">
+                <button class="sell-form-button" type="submit">
                     出品する
                 </button>
             </form>

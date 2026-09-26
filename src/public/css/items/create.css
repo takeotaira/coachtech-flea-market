@@ -2,23 +2,23 @@
     padding: 50px 20px 100px;
 }
 
-.sell__inner {
+.sell-inner {
     width: 100%;
     max-width: 680px;
     margin: 0 auto;
 }
 
-.sell__title {
+.sell-title {
     margin: 0 0 45px;
     font-size: 36px;
     text-align: center;
 }
 
-.sell-form__group {
+.sell-form-group {
     margin-bottom: 35px;
 }
 
-.sell-form__label {
+.sell-form-label {
     display: block;
     margin: 0 0 8px;
     font-size: 24px;
@@ -34,7 +34,7 @@
     border-radius: 4px;
 }
 
-.image-upload__button {
+.image-upload-button {
     padding: 8px 18px;
     border: 2px solid #ff5555;
     border-radius: 6px;
@@ -44,7 +44,7 @@
     cursor: pointer;
 }
 
-.image-upload__input {
+.image-upload-input {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -58,7 +58,7 @@
     margin-top: 65px;
 }
 
-.sell-section__title {
+.sell-section-title {
     margin: 0 0 35px;
     padding-bottom: 10px;
     border-bottom: 1px solid #5f5f5f;
@@ -73,13 +73,13 @@
     padding: 20px 5px;
 }
 
-.category__input {
+.category-input {
     position: absolute;
     opacity: 0;
     pointer-events: none;
 }
 
-.category__label {
+.category-label {
     display: inline-block;
     padding: 4px 16px;
     border: 2px solid #ff5555;
@@ -89,14 +89,14 @@
     cursor: pointer;
 }
 
-.category__input:checked+.category__label {
+.category-input:checked+.category-label {
     background: #ff5555;
     color: #fff;
 }
 
-.sell-form__input,
-.sell-form__select,
-.sell-form__textarea {
+.sell-form-input,
+.sell-form-select,
+.sell-form-textarea {
     width: 100%;
     padding: 10px 12px;
     border: 1px solid #5f5f5f;
@@ -105,18 +105,18 @@
     font-size: 20px;
 }
 
-.sell-form__input,
-.sell-form__select {
+.sell-form-input,
+.sell-form-select {
     height: 55px;
 }
 
-.sell-form__textarea {
+.sell-form-textarea {
     height: 125px;
     font: inherit;
     resize: vertical;
 }
 
-.sell-form__select {
+.sell-form-select {
     color: #5f5f5f;
 }
 
@@ -124,7 +124,7 @@
     position: relative;
 }
 
-.price-input__currency {
+.price-input-currency {
     position: absolute;
     top: 50%;
     left: 15px;
@@ -133,17 +133,17 @@
     transform: translateY(-50%);
 }
 
-.price-input__field {
+.price-input-field {
     padding-left: 40px;
 }
 
-.sell-form__error {
+.sell-form-error {
     margin: 5px 0 0;
     color: #ff5555;
     font-size: 16px;
 }
 
-.sell-form__button {
+.sell-form-button {
     width: 100%;
     margin-top: 55px;
     padding: 13px;

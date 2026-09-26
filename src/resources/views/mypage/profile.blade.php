@@ -8,8 +8,8 @@
 
 @section('content')
     <main class="profile-setting">
-        <div class="profile-setting__inner">
-            <h1 class="profile-setting__title">
+        <div class="profile-setting-inner">
+            <h1 class="profile-setting-title">
                 プロフィール設定
             </h1>
 
@@ -22,26 +22,26 @@
                 @csrf
                 @method('PATCH')
 
-                <div class="profile-form__image-group">
+                <div class="profile-form-image-group">
                     @if ($user->profile && $user->profile->profile_image)
                         <img
-                            class="profile-form__image"
+                            class="profile-form-image"
                             src="{{ asset($user->profile->profile_image) }}"
                             alt="{{ $user->name }}"
                         >
                     @else
-                        <span class="profile-form__image-placeholder"></span>
+                        <span class="profile-form-image-placeholder"></span>
                     @endif
 
                     <label
-                        class="profile-form__image-button"
+                        class="profile-form-image-button"
                         for="profile_image"
                     >
                         画像を選択する
                     </label>
 
                     <input
-                        class="profile-form__file-input"
+                        class="profile-form-file-input"
                         type="file"
                         id="profile_image"
                         name="profile_image"
@@ -50,18 +50,18 @@
                 </div>
 
                 @error('profile_image')
-                    <p class="profile-form__error">
+                    <p class="profile-form-error">
                         {{ $message }}
                     </p>
                 @enderror
 
-                <div class="profile-form__group">
-                    <label class="profile-form__label" for="name">
+                <div class="profile-form-group">
+                    <label class="profile-form-label" for="name">
                         ユーザー名
                     </label>
 
                     <input
-                        class="profile-form__input"
+                        class="profile-form-input"
                         type="text"
                         id="name"
                         name="name"
@@ -69,19 +69,19 @@
                     >
 
                     @error('name')
-                        <p class="profile-form__error">
+                        <p class="profile-form-error">
                             {{ $message }}
                         </p>
                     @enderror
                 </div>
 
-                <div class="profile-form__group">
-                    <label class="profile-form__label" for="postal_code">
+                <div class="profile-form-group">
+                    <label class="profile-form-label" for="postal_code">
                         郵便番号
                     </label>
 
                     <input
-                        class="profile-form__input"
+                        class="profile-form-input"
                         type="text"
                         id="postal_code"
                         name="postal_code"
@@ -89,19 +89,19 @@
                     >
 
                     @error('postal_code')
-                        <p class="profile-form__error">
+                        <p class="profile-form-error">
                             {{ $message }}
                         </p>
                     @enderror
                 </div>
 
-                <div class="profile-form__group">
-                    <label class="profile-form__label" for="address">
+                <div class="profile-form-group">
+                    <label class="profile-form-label" for="address">
                         住所
                     </label>
 
                     <input
-                        class="profile-form__input"
+                        class="profile-form-input"
                         type="text"
                         id="address"
                         name="address"
@@ -109,19 +109,19 @@
                     >
 
                     @error('address')
-                        <p class="profile-form__error">
+                        <p class="profile-form-error">
                             {{ $message }}
                         </p>
                     @enderror
                 </div>
 
-                <div class="profile-form__group">
-                    <label class="profile-form__label" for="building">
+                <div class="profile-form-group">
+                    <label class="profile-form-label" for="building">
                         建物名
                     </label>
 
                     <input
-                        class="profile-form__input"
+                        class="profile-form-input"
                         type="text"
                         id="building"
                         name="building"
@@ -129,13 +129,13 @@
                     >
 
                     @error('building')
-                        <p class="profile-form__error">
+                        <p class="profile-form-error">
                             {{ $message }}
                         </p>
                     @enderror
                 </div>
 
-                <button class="profile-form__button" type="submit">
+                <button class="profile-form-button" type="submit">
                     更新する
                 </button>
             </form>

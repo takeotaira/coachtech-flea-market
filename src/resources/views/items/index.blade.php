@@ -11,9 +11,9 @@
 
 @section('content')
     <div class="item-list">
-        <nav class="item-list__tabs">
+        <nav class="item-list-tabs">
             <a
-                class="item-list__tab {{ request('tab') !== 'mylist' ? 'item-list__tab--active' : '' }}"
+                class="item-list-tab {{ request('tab') !== 'mylist' ? 'item-list-tab-active' : '' }}"
                 href="{{ route('items.index', [
                     'keyword' => request('keyword'),
                 ]) }}"
@@ -22,7 +22,7 @@
             </a>
 
             <a
-                class="item-list__tab {{ request('tab') === 'mylist' ? 'item-list__tab--active' : '' }}"
+                class="item-list-tab {{ request('tab') === 'mylist' ? 'item-list-tab-active' : '' }}"
                 href="{{ route('items.index', [
                     'tab' => 'mylist',
                     'keyword' => request('keyword'),
@@ -32,28 +32,28 @@
             </a>
         </nav>
 
-        <div class="item-list__grid">
+        <div class="item-list-grid">
             @foreach ($items as $item)
                 <article class="item-card">
                     <a
-                        class="item-card__link"
+                        class="item-card-link"
                         href="{{ route('items.show', [
                             'itemId' => $item->id,
                         ]) }}"
                     >
-                        <div class="item-card__image-wrapper">
+                        <div class="item-card-image-wrapper">
                             <img
-                                class="item-card__image"
+                                class="item-card-image"
                                 src="{{ asset($item->image_path) }}"
                                 alt="{{ $item->name }}"
                             >
 
                             @if ($item->purchase)
-                                <span class="item-card__sold">Sold</span>
+                                <span class="item-card-sold">Sold</span>
                             @endif
                         </div>
 
-                        <p class="item-card__name">
+                        <p class="item-card-name">
                             {{ $item->name }}
                         </p>
                     </a>

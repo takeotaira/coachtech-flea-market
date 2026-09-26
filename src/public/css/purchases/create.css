@@ -3,7 +3,7 @@
     margin: 80px auto;
 }
 
-.purchase__form {
+.purchase-form {
     display: grid;
     grid-template-columns: minmax(0, 2fr) minmax(380px, 1fr);
     gap: 100px;
@@ -16,22 +16,22 @@
     border-bottom: 1px solid #5f5f5f;
 }
 
-.purchase-item__image {
+.purchase-item-image {
     width: 180px;
     height: 180px;
     object-fit: contain;
 }
 
-.purchase-item__information {
+.purchase-item-information {
     padding-top: 10px;
 }
 
-.purchase-item__name {
+.purchase-item-name {
     margin: 0 0 20px;
     font-size: 30px;
 }
 
-.purchase-item__price {
+.purchase-item-price {
     margin: 0;
     font-size: 27px;
 }
@@ -41,22 +41,22 @@
     border-bottom: 1px solid #5f5f5f;
 }
 
-.purchase-section__heading {
+.purchase-section-heading {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.purchase-section__title {
+.purchase-section-title {
     margin: 0;
     font-size: 24px;
 }
 
-.purchase-section__content {
+.purchase-section-content {
     margin: 35px 0 0 60px;
 }
 
-.purchase-section__select {
+.purchase-section-select {
     width: 270px;
     height: 40px;
     padding: 0 12px;
@@ -66,29 +66,29 @@
     font-size: 16px;
 }
 
-.purchase-section__error {
+.purchase-section-error {
     margin: 8px 0 0;
     color: #ff5555;
 }
 
-.purchase-section__change-link {
+.purchase-section-change-link {
     color: #0073cc;
     font-size: 20px;
     text-decoration: none;
 }
 
-.purchase-section__address {
+.purchase-section-address {
     margin: 25px 0 0 60px;
     font-size: 20px;
     font-weight: 700;
     line-height: 1.6;
 }
 
-.purchase-section__address p {
+.purchase-section-address p {
     margin: 0;
 }
 
-.purchase__sidebar {
+.purchase-sidebar {
     align-self: start;
 }
 
@@ -97,19 +97,19 @@
     border: 1px solid #5f5f5f;
 }
 
-.purchase-summary__row {
+.purchase-summary-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     min-height: 115px;
     border-bottom: 1px solid #5f5f5f;
 }
 
-.purchase-summary__row:last-child {
+.purchase-summary-row:last-child {
     border-bottom: 0;
 }
 
-.purchase-summary__row dt,
-.purchase-summary__row dd {
+.purchase-summary-row dt,
+.purchase-summary-row dd {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -119,7 +119,7 @@
     text-align: center;
 }
 
-.purchase__button {
+.purchase-button {
     width: 100%;
     margin-top: 60px;
     padding: 13px;
@@ -137,7 +137,7 @@
         width: calc(100% - 80px);
     }
 
-    .purchase__form {
+    .purchase-form {
         grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
         gap: 50px;
     }

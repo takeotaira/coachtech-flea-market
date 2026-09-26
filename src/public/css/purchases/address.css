@@ -2,30 +2,30 @@
     padding: 55px 20px 100px;
 }
 
-.address__inner {
+.address-inner {
     width: 100%;
     max-width: 680px;
     margin: 0 auto;
 }
 
-.address__title {
+.address-title {
     margin: 0 0 50px;
     font-size: 36px;
     text-align: center;
 }
 
-.address-form__group {
+.address-form-group {
     margin-bottom: 30px;
 }
 
-.address-form__label {
+.address-form-label {
     display: block;
     margin-bottom: 8px;
     font-size: 24px;
     font-weight: 700;
 }
 
-.address-form__input {
+.address-form-input {
     width: 100%;
     height: 55px;
     padding: 8px 12px;
@@ -34,13 +34,13 @@
     font-size: 20px;
 }
 
-.address-form__error {
+.address-form-error {
     margin: 5px 0 0;
     color: #ff5555;
     font-size: 16px;
 }
 
-.address-form__button {
+.address-form-button {
     width: 100%;
     margin-top: 55px;
     padding: 13px;

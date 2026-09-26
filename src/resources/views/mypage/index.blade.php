@@ -9,24 +9,24 @@
 @section('content')
     <main class="mypage">
         <section class="profile">
-            <div class="profile__user">
+            <div class="profile-user">
                 @if ($user->profile && $user->profile->profile_image)
                     <img
-                        class="profile__image"
+                        class="profile-image"
                         src="{{ asset($user->profile->profile_image) }}"
                         alt="{{ $user->name }}"
                     >
                 @else
-                    <span class="profile__image-placeholder"></span>
+                    <span class="profile-image-placeholder"></span>
                 @endif
 
-                <h1 class="profile__name">
+                <h1 class="profile-name">
                     {{ $user->name }}
                 </h1>
             </div>
 
             <a
-                class="profile__edit-link"
+                class="profile-edit-link"
                 href="{{ route('mypage.profile.edit') }}"
             >
                 プロフィールを編集
@@ -35,16 +35,16 @@
 
         <nav class="mypage-tabs">
             <a
-                class="mypage-tabs__link
-                    {{ request('page', 'sell') === 'sell' ? 'mypage-tabs__link--active' : '' }}"
+                class="mypage-tabs-link
+                    {{ request('page', 'sell') === 'sell' ? 'mypage-tabs-link-active' : '' }}"
                 href="{{ route('mypage', ['page' => 'sell']) }}"
             >
                 出品した商品
             </a>
 
             <a
-                class="mypage-tabs__link
-                    {{ request('page') === 'buy' ? 'mypage-tabs__link--active' : '' }}"
+                class="mypage-tabs-link
+                    {{ request('page') === 'buy' ? 'mypage-tabs-link-active' : '' }}"
                 href="{{ route('mypage', ['page' => 'buy']) }}"
             >
                 購入した商品
@@ -55,24 +55,24 @@
             @foreach ($items as $item)
                 <article class="item-card">
                     <a
-                        class="item-card__link"
+                        class="item-card-link"
                         href="{{ route('items.show', ['itemId' => $item->id]) }}"
                     >
-                        <div class="item-card__image-wrapper">
+                        <div class="item-card-image-wrapper">
                             <img
-                                class="item-card__image"
+                                class="item-card-image"
                                 src="{{ asset($item->image_path) }}"
                                 alt="{{ $item->name }}"
                             >
 
                             @if ($item->purchase)
-                                <span class="item-card__sold">
+                                <span class="item-card-sold">
                                     Sold
                                 </span>
                             @endif
                         </div>
 
-                        <p class="item-card__name">
+                        <p class="item-card-name">
                             {{ $item->name }}
                         </p>
                     </a>

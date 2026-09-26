@@ -26,23 +26,23 @@ input {
     background: #000;
 }
 
-.header__logo-link {
+.header-logo-link {
     display: flex;
     align-items: center;
     width: 370px;
 }
 
-.header__logo {
+.header-logo {
     width: 370px;
     max-width: 100%;
 }
 
-.header__search {
+.header-search {
     flex: 1;
     margin: 0 30px;
 }
 
-.header__search-input {
+.header-search-input {
     width: 100%;
     height: 50px;
     padding: 0 30px;
@@ -52,19 +52,19 @@ input {
     font-size: 24px;
 }
 
-.header__nav {
+.header-nav {
     display: flex;
     align-items: center;
     gap: 28px;
     white-space: nowrap;
 }
 
-.header__logout-form {
+.header-logout-form {
     margin: 0;
 }
 
-.header__nav-link,
-.header__nav-button {
+.header-nav-link,
+.header-nav-button {
     padding: 0;
     border: none;
     background: transparent;
@@ -74,7 +74,7 @@ input {
     cursor: pointer;
 }
 
-.header__sell-link {
+.header-sell-link {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,19 +88,19 @@ input {
 }
 
 @media screen and (max-width: 1400px) {
-    .header__logo-link {
+    .header-logo-link {
         width: 300px;
     }
 
-    .header__logo {
+    .header-logo {
         width: 300px;
     }
 
-    .header__search {
+    .header-search {
         margin: 0 20px;
     }
 
-    .header__nav {
+    .header-nav {
         gap: 20px;
     }
 }
